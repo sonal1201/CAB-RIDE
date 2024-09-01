@@ -6,4 +6,4 @@ const router = express.Router();
 router.get('/bookings', authMiddleware, getDriverBooking);
 router.get('/loaction', authMiddleware, updateLocation);
 
-module.exports = router
+module.exports = router;
