@@ -11,8 +11,6 @@ const getPassengerBookings = async (passengerId) => {
 
     }
 
-    passenngerRepository.findPassengerById(passengerId);
-    if (!passen)
 }
 
 const provideFeedback = async (passengerId, bookingId, rating, feedback) => {

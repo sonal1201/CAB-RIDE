@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
 // This is the pre save middleware that runs before a docs save to db
 
 userSchema.pre('save', async function (next) {
-    if (this.isModified('password')) return next();
+    if (!this.isModified('password')) return next();
     this.password = await bcrypt.hash(this.password, 10)
     next();
 })
