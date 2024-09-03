@@ -6,6 +6,8 @@ const mongoose = require('mongoose')
 const socketIo = require('socket.io')
 const { redisClient } = require('./utils/redisClient')
 
+
+const locationService = require("./services/locationService")
 const bookingRoutes = require('./routes/bookingRoutes');
 const passengerRoutes = require('./routes/passengerRoutes');
 const authRoutes = require('./routes/authRoutes');
@@ -15,6 +17,12 @@ dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
+const io = socketIo(server, {
+    cors: {
+        origin: "htpp://127.0.0.1.5500",
+        methods: ["GET", "POST"]
+    }
+})
 
 app.use(cors());
 app.use(express.json());
@@ -37,3 +45,19 @@ server.listen(process.env.PORT, () => {
 redisClient.on('connect', () => {
     console.log('Connected to Reddis')
 })
+
+//Socket Implementaion
+io.on('connection', (socket) => {
+
+    socket.on('registerDriver', async () => {
+        await locationService.setDriverSocket(driverId, socket.Id)
+    })
+
+    socket.on('disconnect', async () => {
+        const driverId = await locationService.getDriverSocket(`driver:${driverId}`);
+        if (driverId) {
+            await locationService.deleteDriverSocket(`driver:${driverId}`);
+        }
+    });
+
+});

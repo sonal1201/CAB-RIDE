@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const bookingSchema = new mongoose.Schema({
     passenger: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    driver: { type: mongoose.Schema.Types.ObjectId, ref: 'user', default: null },
+    driver: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },
     source: {
         latitude: {
             type: Number
