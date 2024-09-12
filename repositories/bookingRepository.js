@@ -3,4 +3,10 @@ const findBooking = async (criteria) => {
     return await Booking.findOne(criteria)
 }
 
-module.exports = { findBooking }
+const createBooking = async (bookingData) => {
+    const booking = newBooking(bookingData);
+    await booking.save();
+    return booking;
+}
+
+module.exports = { findBooking, createBooking }
