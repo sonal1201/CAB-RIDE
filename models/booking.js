@@ -7,17 +7,23 @@ const bookingSchema = new mongoose.Schema({
         latitude: {
             type: Number
         },
-        logitude: {
+        longitude: {
             type: Number
         }
     },
-    fare: { type: Number },
-    status: { type: String, enum: ['Confirmed', 'Pending', 'Compeleted', 'Cancelled'], default: 'Pending' },
-    rating: { type: Number },
-    feedback: { type: String }
+    destination: {
+        latitude: {
+            type: Number
+        },
+        longitude: {
+            type: Number
+        }
+    },
+    fare: Number,
+    status: { type: String, enum: ['pending', 'confirmed', 'completed'], default: 'pending' },
+    rating: Number,
+    feedback: String
+});
 
-})
-
-const Booking = mongoose.model('Bookings', bookingSchema);
-
-module.exports = Booking
+const Booking = mongoose.model('Booking', bookingSchema);
+module.exports = Booking;
